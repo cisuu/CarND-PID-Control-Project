@@ -2,6 +2,21 @@
 Self-Driving Car Engineer Nanodegree Program
 
 ---
+## PID-Control
+
+It is build for 3 components
+
+P - Proportional Control
+
+I - Integral Control
+
+D - Differential Control
+
+each of which plays different role in calculating correct values.
+
+### P - Proportional Control
+
+We can define it as `tau_p * CTE`. Unfortunately using only this part won't give us good results. it will just change the value of out current `CTE` by some factor. We can control the `oscillation` by this parameter, the higher it is the faster value oscillates.
 
 ## Dependencies
 
@@ -19,7 +34,7 @@ Self-Driving Car Engineer Nanodegree Program
   * Run either `./install-mac.sh` or `./install-ubuntu.sh`.
   * If you install from source, checkout to commit `e94b6e1`, i.e.
     ```
-    git clone https://github.com/uWebSockets/uWebSockets 
+    git clone https://github.com/uWebSockets/uWebSockets
     cd uWebSockets
     git checkout e94b6e1
     ```
@@ -33,7 +48,7 @@ There's an experimental patch for windows in this [PR](https://github.com/udacit
 1. Clone this repo.
 2. Make a build directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
-4. Run it: `./pid`. 
+4. Run it: `./pid`.
 
 ## Editor Settings
 

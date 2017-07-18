@@ -17,6 +17,7 @@ public:
   double Ki;
   double Kd;
 
+
   /*
   * Constructor
   */
@@ -41,6 +42,11 @@ public:
   * Calculate the total PID error.
   */
   double TotalError();
+  
+private:
+  bool _is_initialized;
+  double _previous_cte;
+  double _cte_sum;
 };
 
 #endif /* PID_H */
