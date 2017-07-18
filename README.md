@@ -18,6 +18,48 @@ each of which plays different role in calculating correct values.
 
 We can define it as `tau_p * CTE`. Unfortunately using only this part won't give us good results. it will just change the value of out current `CTE` by some factor. We can control the `oscillation` by this parameter, the higher it is the faster value oscillates.
 
+`tau_p = 0.1`
+![tau_p_0_1](./images/tau_p_0_1.png)
+
+`tau_p = 0.3`
+![tau_p_0_3](./images/tau_p_0_3.png)
+
+### I - Integral Control
+
+Using this control we are able to reduce bias of our system. It is defined as `tau_i * sum(CTE)`. In this project this control didn't take significant part, but for the sake of project I decided to use it with very little `tau_i` value. The smaller value of `tau_i` the slower the bias is removed, however you need to be careful as this can lead to overshoot if value is to big.
+
+`tau_i 0.004(with bias 0.1)`
+![tau_i_0_004](./images/tau_i_0_004.png)
+
+`tau_i 0.01(with bias 0.1)`
+![tau_i_0_01](./images/tau_i_0_01.png)
+
+### Differential Control
+
+This control allows us to prevent our controller from overshooting. It is defined as `tau_d * diff_cte / delta_t` where `diff_cte = current_cte - previous_cte` in time. The higher value of `tau_d` the slower control will reach the 0 value.
+
+`tau_d = 3.0`
+![tau_d_3](./images/tau_d_3.png)
+
+`tau_d = 5.0`
+![tau_d_5](./images/tau_d_5.png)
+
+## Choosing Hyperparametes
+
+I decided to do it by starting from ones presented in labs and tune then by modifying one at the time and checking the results. I decided to use 2 PID controllers so after I was done with steering I started to adjust speed controller with the same technic. The only bigger difference was that I has to change a little the range for speed controller as it needs values `[0..1]`.
+
+Final parameters for my simulation are:
+
+Steering Controller:
+- tau_p `0.19` - Smaller value than in speed controller as here the oscillations made the car go off the track if this value was getting bigger.
+- tau_i `0.0000001` - not needed in simulator
+- tau_d `3.0` - Smoother the correction of steering angle. But when the value was bigger the correction was to slow.
+
+Speed Controller:
+- tau_p `0.85` - the bigger value the more often response to CTE which was needed because I wanted to make the car get and reduce the speed fast.
+- tau_i `0.0000001` - not needed in simulator
+- tau_d `2.0` - The bigger this value was the slower the correction of speed was.
+
 ## Dependencies
 
 * cmake >= 3.5
